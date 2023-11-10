@@ -5,7 +5,6 @@ class Node:
         self.value = n
 
 def tree_by_levels(node):
-    # FI 3 2 1 --- FO 1 2 3
     if node == None:
         return [] # empty list
 
@@ -21,3 +20,8 @@ def tree_by_levels(node):
             queue.append(n.right)
 
     return result
+
+
+if __name__ == '__main__':
+    n = Node(Node(Node(None, None, 3), Node(None, None, 4), 2) , Node(None, None, 6), 1) 
+    print(tree_by_levels(n))
