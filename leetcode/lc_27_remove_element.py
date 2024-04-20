@@ -30,3 +30,8 @@ class Solution:
                 nums[i], nums[k] = nums[k], nums[i]
                 k -= 1
         return k+1
+
+    def removeElement2(self, nums: List[int], val: int) -> int:
+        while val in nums:
+            nums.remove(val)
+        return len(nums)
