@@ -21,9 +21,6 @@ def main():
     print(canSum(1, [1]))  # True
     print(canSum(1, [2]))  # False
 
-    
-
-
 
 if __name__ == "__main__":
     main()
