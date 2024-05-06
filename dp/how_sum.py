@@ -1,27 +1,17 @@
-from typing import List
+from typing import List, Optional
 
 
 def how_sum(target: int, arr: List[int]) -> List[int]:
     return how_sum_rec(target, arr)
 
-    """
-    The function `how_sum_rec` recursively finds a combination of elements from the input array that sum
-    up to the target value.
 
-    :param target: The `target` parameter represents the target sum that we want to achieve using
-    elements from the `arr` list. The function `how_sum_rec` uses recursion to find a combination of
-    elements from the `arr` list that sum up to the `target` value. If such a combination exists,
-    :type target: int
-    :param arr: the list of integers for the 'arr' parameter in
-    the 'how_sum_rec' function. Please go ahead and provide the list of integers so that I can assist
-    you further with the code
-    :type arr: List[int]
-    :return: The function `how_sum_rec` is returning a list of integers that sum up to the target value.
-    If it is not possible to achieve the target sum using the numbers in the array, it returns `None`.
-    """
+def how_sum_rec(target: int, arr: List[int], dp: Optional[List[int]] = None) -> List[int]:
+    if dp is None:
+        dp = {0: []}
+        
+    if target in dp:
+        return dp[target]
 
-
-def how_sum_rec(target: int, arr: List[int]) -> List[int]:
     if target == 0:
         return []
 
@@ -29,11 +19,13 @@ def how_sum_rec(target: int, arr: List[int]) -> List[int]:
         return None
 
     for n in arr:
-        result = how_sum_rec(target-n, arr)
+        result = how_sum_rec(target-n, arr, dp)
         if result is not None:
-            return result + [n]
+            dp[target] = result + [n]
+            return dp[target]
 
-    return result
+    dp[target] = None
+    return dp[target]
 
 
 def main():
@@ -41,6 +33,8 @@ def main():
     print(how_sum(7, [5, 3, 4, 7]))  # [4, 3]
     print(how_sum(1, [1]))  # [1]
     print(how_sum(8, [2, 3, 5]))  # [2, 2, 2, 2]
+    print(how_sum(300, [13, 1, 10]))
+    print(how_sum(17, [13, 12]))  # None
 
 
 if __name__ == "__main__":

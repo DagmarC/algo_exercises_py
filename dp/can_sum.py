@@ -29,6 +29,5 @@ def main():
     print(can_sum(300, [7, 14]))  # False
 
 
-
 if __name__ == "__main__":
     main()
