@@ -1,29 +1,31 @@
-from typing import List, Optional
+from typing import List
 
 
 def best_sum(target: int, arr: List[int]) -> List[int]:
     return best_sum_rec(target, arr)
 
 
-def best_sum_rec(target: int, arr: List[int], dp: Optional[List[int]] = None) -> List[int]:
+def best_sum_rec(target: int, arr: List[int], dp=None) -> List[int]:
     if dp is None:
         dp = {0: []}
-    
+
     if target in dp:
         return dp[target]
-    
+
     if target == 0:
         return []
 
+    result = None
     for n in arr:
         partialResult = best_sum_rec(target-n, arr, dp) if target - n >= 0 else None
         if partialResult is not None:
             # here I already know that it is possible to create the combination
             currentResult = partialResult + [n]
-            if target not in dp or len(dp[target]) > len(currentResult):
-                dp[target] = currentResult
-            
-    return dp[target] if target in dp else None
+            if result is None or len(currentResult) < len(result):
+                result = currentResult
+
+    dp[target] = result  # result stores the shortest combination for the target sum
+    return result
 
 
 def main():
