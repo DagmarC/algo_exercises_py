@@ -1,7 +1,7 @@
 def is_palindrome_valid(s: str) -> bool:    
     left, right = 0, len(s)-1
     valid = True
-    while left <= right:
+    while left < right:
         # skip all non-alphanumeric characters from both sides
         while left < right and not s[left].isalnum():
             left += 1
