@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -17,9 +18,9 @@ def rightSideView(root):
     
     queue.append((root, height))    
     while queue:        
-        n, height = queue.popleft() # FIFO: remove 1st element from queue
+        n, height = queue.popleft()  # FIFO: remove 1st element from queue
         
-        if len(queue) == 0 or height < queue[0][1]: # no more elements on the same level (with the same hight) has left -> rightmost element
+        if len(queue) == 0 or height < queue[0][1]:  # no more elements on the same level (with the same hight) has left -> rightmost element
             result.append(n.val)
         
         if n.left is not None:
@@ -53,6 +54,5 @@ if __name__ == '__main__':
     n4.right = n7
     n7.left = n8
     n7.right = n9
-
 
     print(rightSideView(root))

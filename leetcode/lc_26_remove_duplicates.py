@@ -12,3 +12,4 @@ class Solution:
                 write_pointer += 1
 
         return write_pointer
+    
