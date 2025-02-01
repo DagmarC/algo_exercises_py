@@ -1,46 +1,33 @@
 def next_lexicographical_sequence(s: str) -> str:
-    if len(s) == 1:
+    if len(s) <= 1:
         return s
     
-    i = len(s) - 2
-    # find 1st occurence where the letter is greater than its rightmost neighbour
-    while i >= 0 and s[i] >= s[i+1]:
+    ls = list(s)  # better for manipulation
+    i = len(ls) - 2
+    
+    # Step 1: Find the first decreasing character from the right
+    while i >= 0 and ls[i] >= ls[i+1]:
         i -= 1
     
-    # if there is no increasing two consecutive letters found like dcba, return just its reverse abcd
+    # If no such character is found, return the reversed string (last permutation)
     if i == -1:
-        return s[::-1] # reverse string
+        return ''.join(ls[::-1]) # reverse string
     
-    suffix = ""
-    j = i+1
-    # go through the string s from j=i+1 to the end and sort this suffix alphabetically 
-    while j <= len(s) - 1:
-        inserted = False
-        if suffix == "":
-            suffix += s[j]
-        # do the 'insertion sort' into the suffix to have them alphabetically sorted, which will be used in the result
-        else:
-            for si, char in enumerate(suffix):
-                if char > s[j]:
-                    suffix = suffix[:si] + s[j] + suffix[si:]
-                    inserted = True
-                    break # insertion of s[j] successfull
-            if not inserted:
-                suffix += s[j]  # no char in suffix was greater than s[j] so s[j] is the largest => insert at the end                
-        j += 1
-        
-    # Suffix is sorted, so we can now form the result and swap s[i] and s[j] where s[j] is the first smallest letter greater than s[i]
-    result = s[:i]
+    # Step 2: Find the smallest character on the right that is larger than ls[i]
+    j = len(ls) - 1
     
-    #  swap s[i] and first greater letter in suffix than s[i]
-    for sj, char in enumerate(suffix):
-        if s[i] < char:
-            result += char # char represents s[j]
-            suffix = suffix[:sj] + s[i] + suffix[sj+1:]  # swap s[i] and s[j]
-            break     
-    result += suffix  # add swapped suffix to the result
+    # Right part is cosidered to be Non-decreasing (the first increasing sequence was already found with i index), 
+    # so the 1st element found from the right that is greater than s[i] is surely the first smallest element greater than s[i]
+    while ls[j] <= ls[i]:
+        j -= 1 # skip smaller elements
     
-    return result
+    # Step 3: Swap elements s[i] and s[j]
+    ls[i], ls[j] = ls[j], ls[i]
+    
+    # Step 4: Sort right part from s[i+1]  - Reverse it (already non-decreasing)
+    ls[i+1:] = reversed(ls[i+1:])
+    
+    return ''.join(ls)
 
 # NOTES: print statements for debug:
 
