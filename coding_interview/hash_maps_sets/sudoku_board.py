@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Set
 
 def verify_sudoku_board(board: List[List[int]]) -> bool:
     row_set: List[Set[int]] = [set() for _ in range(9)]
