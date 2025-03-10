@@ -4,13 +4,12 @@ class ListNode:
         self.next = next
 
 
-def linked_list_reversal(head: ListNode) -> ListNode:
+def linked_list_reversal_it(head: ListNode):
     if not head:
-        return ListNode().val
+        return None
     
-    prev_node = head
-    node = head.next
-    prev_node.next = None
+    node = head
+    prev_node = None
     while node:
         next_node = node.next
         node.next = prev_node
@@ -19,6 +18,18 @@ def linked_list_reversal(head: ListNode) -> ListNode:
     
     return prev_node
 
+def linked_list_reversal(head: ListNode):
+    if (not head) or (not head.next):
+        return head  # only node is returned itself
+    print(f"1. head is {head.val}")
+    new_head = linked_list_reversal(head.next)
+    print(f"2. head is {head.val}, newhead is {new_head.val}")
+
+    head.next.next = head
+    head.next = None
+    return new_head
+    
+    
 # Helper functions for testing
 def create_linked_list(values):
     if not values:
