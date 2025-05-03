@@ -70,5 +70,5 @@ def test_linked_list_reversal():
     print("All test cases passed!")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     test_linked_list_reversal()
